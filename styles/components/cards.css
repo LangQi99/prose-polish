@@ -11,6 +11,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    z-index: 1; /* 降低卡片的z-index，使连线能够正常显示 */
 }
 
 .prompt-card:hover {
