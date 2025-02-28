@@ -86,10 +86,11 @@ paragraphContainer.addEventListener('drop', (e) => {
     e.preventDefault();
     const content = e.dataTransfer.getData('text/plain');
     if (content) {
-        // 计算放置位置
+        // 计算放置位置，考虑滚动偏移
         const rect = paragraphContainer.getBoundingClientRect();
+        const scrollTop = paragraphContainer.scrollTop; // 获取容器的垂直滚动位置
         const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        const y = e.clientY - rect.top + scrollTop; // 加上滚动偏移
         
         // 创建新卡片
         const card = markdownHandler.createCard(content);
@@ -134,6 +135,12 @@ function addDefaultTextCard() {
     const card = markdownHandler.createCard(defaultText);
     card.style.left = '10px';
     card.style.top = '10px';
+
+    // 添加第二个示例卡片
+    const anotherCardText = `这是另一个示例卡片，你可以拖动、缩放、连接它们。`;
+    const anotherCard = markdownHandler.createCard(anotherCardText);
+    anotherCard.style.left = '10px';
+    anotherCard.style.top = '170px'; // 在第一个卡片下方
 }
 
 // 在页面加载完成后先尝试恢复数据，如果没有恢复成功再添加默认卡片
